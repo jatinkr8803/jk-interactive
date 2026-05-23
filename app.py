@@ -14,7 +14,14 @@ load_dotenv(os.path.join(BASE_DIR, '.env'))
 # =========================
 # Resend Config
 # =========================
-resend.api_key = os.environ.get("RESEND_API_KEY")
+RESEND_API_KEY = os.environ.get("RESEND_API_KEY")
+
+if not RESEND_API_KEY:
+    raise RuntimeError(
+        "RESEND_API_KEY missing in environment variables"
+    )
+
+resend.api_key = RESEND_API_KEY
 
 # =========================
 # Flask App Setup
@@ -42,6 +49,9 @@ CORS(
     }
 )
 
+# =========================
+# Secret Key
+# =========================
 app.config['SECRET_KEY'] = os.environ.get(
     'SECRET_KEY',
     'change-this-secret'
@@ -50,7 +60,7 @@ app.config['SECRET_KEY'] = os.environ.get(
 # =========================
 # Email Helper
 # =========================
-def send_email(subject, body, reply_to=None):
+def send_email(subject, body, user_email=None):
 
     EMAIL_USER = os.environ.get('EMAIL_USER')
 
@@ -60,14 +70,22 @@ def send_email(subject, body, reply_to=None):
         )
 
     params = {
+
+        # Resend testing sender
         "from": "JK Interactive <onboarding@resend.dev>",
+
+        # IMPORTANT:
+        # Always send TO your own verified Gmail
         "to": [EMAIL_USER],
+
         "subject": subject,
+
         "text": body,
     }
 
-    if reply_to:
-        params["reply_to"] = reply_to
+    # User email preserved for reply
+    if user_email:
+        params["reply_to"] = user_email
 
     resend.Emails.send(params)
 
@@ -100,33 +118,38 @@ def test():
 @app.route('/api/contact', methods=['POST'])
 def api_contact():
 
-    data = request.get_json() or {}
+    try:
 
-    name = data.get('name', '').strip()
-    email = data.get('email', '').strip()
-    category = data.get('category', '').strip()
-    message = data.get('message', '').strip()
+        data = request.get_json() or {}
 
-    # =========================
-    # Validation
-    # =========================
-    if not name or not email or not message:
+        name = data.get('name', '').strip()
+        email = data.get('email', '').strip()
+        category = data.get('category', '').strip()
+        message = data.get('message', '').strip()
 
-        return jsonify({
-            'success': False,
-            'error': 'Name, email and message are required'
-        }), 400
+        # =========================
+        # Validation
+        # =========================
+        if not name or not email or not message:
 
-    if '@' not in email:
+            return jsonify({
+                'success': False,
+                'error': 'Name, email and message are required'
+            }), 400
 
-        return jsonify({
-            'success': False,
-            'error': 'Invalid email address'
-        }), 400
+        if '@' not in email or '.' not in email:
 
-    subject = f"New Inquiry from {name}"
+            return jsonify({
+                'success': False,
+                'error': 'Invalid email address'
+            }), 400
 
-    body = f"""
+        # =========================
+        # Email Content
+        # =========================
+        subject = f"New Inquiry from {name}"
+
+        body = f"""
 New Contact Inquiry
 
 Name:
@@ -142,12 +165,13 @@ Message:
 {message}
 """
 
-    try:
-
+        # =========================
+        # Send Email
+        # =========================
         send_email(
             subject,
             body,
-            reply_to=email
+            user_email=email
         )
 
         return jsonify({

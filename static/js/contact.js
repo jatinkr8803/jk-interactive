@@ -3,17 +3,6 @@
 (function () {
 
   // =========================
-  // Backend URL Detection
-  // =========================
-  const isLocalhost =
-    window.location.hostname === "localhost" ||
-    window.location.hostname === "127.0.0.1";
-
-  const BACKEND = isLocalhost
-    ? "http://127.0.0.1:5000"
-    : "https://jk-interactive.onrender.com";
-
-  // =========================
   // Spinner
   // =========================
   function showSpinner() {
@@ -83,102 +72,6 @@
   }
 
   // =========================
-  // Submit Helper
-  // =========================
-  async function submitContactPayload(payload, timeout = 60000) {
-
-    const controller = new AbortController();
-
-    const timeoutId = setTimeout(() => {
-      controller.abort();
-    }, timeout);
-
-    try {
-
-      showSpinner();
-
-      const response = await fetch(`${BACKEND}/api/contact`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(payload),
-        signal: controller.signal
-      });
-
-      clearTimeout(timeoutId);
-
-      const data = await response.json().catch(() => ({}));
-
-      if (response.ok && data.success) {
-
-        window.showToast &&
-          window.showToast(
-            'Inquiry Received!',
-            `Thank you ${payload.name}. We'll get back to you soon.`,
-            'success'
-          );
-
-        return {
-          ok: true,
-          data
-        };
-
-      } else {
-
-        window.showToast &&
-          window.showToast(
-            'Send Failed',
-            data.error || 'Unable to send inquiry.',
-            'error'
-          );
-
-        return {
-          ok: false,
-          data
-        };
-      }
-
-    } catch (err) {
-
-      console.error('Contact Form Error:', err);
-
-      if (err.name === 'AbortError') {
-
-        window.showToast &&
-          window.showToast(
-            'Timeout',
-            'Request timed out. Please try again.',
-            'error'
-          );
-
-      } else {
-
-        window.showToast &&
-          window.showToast(
-            'Network Error',
-            'Unable to connect to server.',
-            'error'
-          );
-      }
-
-      return {
-        ok: false,
-        error: err
-      };
-
-    } finally {
-
-      clearTimeout(timeoutId);
-
-      hideSpinner();
-    }
-  }
-
-  // expose globally
-  window.submitContactPayload = submitContactPayload;
-
-  // =========================
   // Main Logic
   // =========================
   document.addEventListener('DOMContentLoaded', () => {
@@ -206,9 +99,6 @@
 
       const email =
         document.getElementById('contact-email')?.value.trim();
-
-      const category =
-        document.getElementById('contact-category')?.value.trim();
 
       const message =
         document.getElementById('contact-message')?.value.trim();
@@ -262,42 +152,11 @@
       }
 
       // =========================
-      // Submit
+      // Submit via FormSubmit
       // =========================
-      const payload = {
-        name,
-        email,
-        category,
-        message
-      };
+      showSpinner();
 
-      const result =
-        await submitContactPayload(payload);
-
-      // =========================
-      // Success
-      // =========================
-      if (result && result.ok) {
-        form.reset();
-      }
-
-      // =========================
-      // Restore Button
-      // =========================
-      form.dataset.sending = '0';
-
-      if (submitBtn) {
-
-        submitBtn.disabled = false;
-
-        submitBtn.innerHTML =
-          submitBtn.dataset.original ||
-          'Send Inquiry';
-
-        submitBtn.style.opacity = '1';
-
-        submitBtn.style.cursor = 'pointer';
-      }
+      form.submit();
 
     });
 
