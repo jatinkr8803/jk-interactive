@@ -88,7 +88,8 @@ def send_email(subject, body, reply_to=None):
 
             # IMPORTANT TLS FIX
             server.starttls()
-
+            server.set_debuglevel(1)
+            
             server.ehlo()
 
             server.login(
