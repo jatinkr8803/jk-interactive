@@ -32,7 +32,8 @@ CORS(
             "origins": [
                 "http://127.0.0.1:5500",
                 "http://localhost:5500",
-                "https://jkinteractive.netlify.app"
+                "https://jkinteractive.netlify.app",
+                "https://jk-interactive.onrender.com"
             ]
         }
     }
@@ -56,13 +57,6 @@ def send_email(subject, body, reply_to=None):
             'EMAIL_USER or EMAIL_PASSWORD missing'
         )
 
-    # Gmail SMTP
-    SMTP_HOST = "smtp.gmail.com"
-
-    # IMPORTANT:
-    # 587 = STARTTLS
-    SMTP_PORT = 587
-
     msg = MIMEMultipart()
 
     msg['From'] = EMAIL_USER
@@ -78,19 +72,14 @@ def send_email(subject, body, reply_to=None):
 
     try:
 
-        with smtplib.SMTP(
-            SMTP_HOST,
-            SMTP_PORT,
+        # =========================
+        # Gmail SMTP SSL
+        # =========================
+        with smtplib.SMTP_SSL(
+            "smtp.gmail.com",
+            465,
             timeout=30
         ) as server:
-
-            server.ehlo()
-
-            # IMPORTANT TLS FIX
-            server.starttls()
-            server.set_debuglevel(1)
-            
-            server.ehlo()
 
             server.login(
                 EMAIL_USER,
@@ -106,7 +95,7 @@ def send_email(subject, body, reply_to=None):
     except smtplib.SMTPAuthenticationError:
 
         raise RuntimeError(
-            'SMTP authentication failed. Use Gmail App Password.'
+            'SMTP authentication failed. Use Google App Password.'
         )
 
     except smtplib.SMTPException as e:
@@ -167,7 +156,6 @@ def api_contact():
             'error': 'Name, email and message are required'
         }), 400
 
-    # Basic Email Validation
     if '@' not in email:
 
         return jsonify({
