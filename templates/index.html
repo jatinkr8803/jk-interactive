@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>JK Interactive | Digital Craftsmanship</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&amp;family=Plus+Jakarta+Sans:wght@700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "on-tertiary-fixed": "var(--on-tertiary-fixed)",
+                    "primary-container": "var(--primary-container)",
+                    "primary": "var(--primary)",
+                    "outline-variant": "var(--outline-variant)",
+                    "on-primary-fixed-variant": "var(--on-primary-fixed-variant)",
+                    "inverse-on-surface": "var(--inverse-on-surface)",
+                    "surface": "var(--surface)",
+                    "on-primary-container": "var(--on-primary-container)",
+                    "surface-container-highest": "var(--surface-container-highest)",
+                    "secondary-fixed-dim": "var(--secondary-fixed-dim)",
+                    "on-surface-variant": "var(--on-surface-variant)",
+                    "surface-container-low": "var(--surface-container-low)",
+                    "inverse-primary": "var(--inverse-primary)",
+                    "surface-bright": "var(--surface-bright)",
+                    "error-container": "var(--error-container)",
+                    "on-error-container": "var(--on-error-container)",
+                    "on-secondary": "var(--on-secondary)",
+                    "on-background": "var(--on-background)",
+                    "on-tertiary": "var(--on-tertiary)",
+                    "surface-container-high": "var(--surface-container-high)",
+                    "on-tertiary-container": "var(--on-tertiary-container)",
+                    "tertiary": "var(--tertiary)",
+                    "background": "var(--background)",
+                    "secondary-container": "var(--secondary-container)",
+                    "surface-container-lowest": "var(--surface-container-lowest)",
+                    "primary-fixed": "var(--primary-fixed)",
+                    "primary-fixed-dim": "var(--primary-fixed-dim)",
+                    "secondary-fixed": "var(--secondary-fixed)",
+                    "surface-variant": "var(--surface-variant)",
+                    "secondary": "var(--secondary)",
+                    "surface-tint": "var(--surface-tint)",
+                    "on-primary-fixed": "var(--on-primary-fixed)",
+                    "on-secondary-fixed": "var(--on-secondary-fixed)",
+                    "inverse-surface": "var(--inverse-surface)",
+                    "tertiary-fixed-dim": "var(--tertiary-fixed-dim)",
+                    "on-secondary-container": "var(--on-secondary-container)",
+                    "on-tertiary-fixed-variant": "var(--on-tertiary-fixed-variant)",
+                    "on-secondary-fixed-variant": "var(--on-secondary-fixed-variant)",
+                    "error": "var(--error)",
+                    "on-error": "var(--on-error)",
+                    "surface-dim": "var(--surface-dim)",
+                    "on-primary": "var(--on-primary)",
+                    "outline": "var(--outline)",
+                    "tertiary-fixed": "var(--tertiary-fixed)",
+                    "tertiary-container": "var(--tertiary-container)",
+                    "surface-container": "var(--surface-container)",
+                    "on-surface": "var(--on-surface)"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "margin-desktop": "80px",
+                    "unit": "8px",
+                    "section-gap": "160px",
+                    "gutter": "32px",
+                    "container-max": "1440px",
+                    "margin-mobile": "24px"
+            },
+            "fontFamily": {
+                    "body-lg": ["Inter"],
+                    "display-md": ["Plus Jakarta Sans"],
+                    "headline-md": ["Plus Jakarta Sans"],
+                    "label-md": ["Inter"],
+                    "headline-lg-mobile": ["Plus Jakarta Sans"],
+                    "headline-lg": ["Plus Jakarta Sans"],
+                    "body-md": ["Inter"],
+                    "display-lg": ["Plus Jakarta Sans"]
+            },
+            "fontSize": {
+                    "body-lg": ["20px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                    "display-md": ["64px", {"lineHeight": "1.1", "letterSpacing": "-0.03em", "fontWeight": "800"}],
+                    "headline-md": ["32px", {"lineHeight": "1.3", "fontWeight": "700"}],
+                    "label-md": ["14px", {"lineHeight": "1.2", "letterSpacing": "0.05em", "fontWeight": "600"}],
+                    "headline-lg-mobile": ["32px", {"lineHeight": "1.2", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "headline-lg": ["48px", {"lineHeight": "1.2", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "body-md": ["16px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                    "display-lg": ["80px", {"lineHeight": "1.1", "letterSpacing": "-0.04em", "fontWeight": "800"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        :root {
+            --on-tertiary-fixed: #380d00;
+            --primary-container: #2e5bff;
+            --primary: #0040e0;
+            --outline-variant: #c4c5d9;
+            --on-primary-fixed-variant: #0035be;
+            --inverse-on-surface: #f0f1f2;
+            --surface: #f8f9fa;
+            --on-primary-container: #efefff;
+            --surface-container-highest: #e1e3e4;
+            --secondary-fixed-dim: #d8b9ff;
+            --on-surface-variant: #434656;
+            --surface-container-low: #f3f4f5;
+            --inverse-primary: #b8c3ff;
+            --surface-bright: #f8f9fa;
+            --error-container: #ffdad6;
+            --on-error-container: #93000a;
+            --on-secondary: #ffffff;
+            --on-background: #191c1d;
+            --on-tertiary: #ffffff;
+            --surface-container-high: #e7e8e9;
+            --on-tertiary-container: #ffece6;
+            --tertiary: #993100;
+            --background: #f8f9fa;
+            --secondary-container: #944af1;
+            --surface-container-lowest: #ffffff;
+            --primary-fixed: #dde1ff;
+            --primary-fixed-dim: #b8c3ff;
+            --secondary-fixed: #eedcff;
+            --surface-variant: #e1e3e4;
+            --secondary: #7a2ad6;
+            --surface-tint: #124af0;
+            --on-primary-fixed: #001356;
+            --on-secondary-fixed: #290055;
+            --inverse-surface: #2e3132;
+            --tertiary-fixed-dim: #ffb59b;
+            --on-secondary-container: #fffbff;
+            --on-tertiary-fixed-variant: #812800;
+            --on-secondary-fixed-variant: #6300bb;
+            --error: #ba1a1a;
+            --on-error: #ffffff;
+            --surface-dim: #d9dadb;
+            --on-primary: #ffffff;
+            --outline: #747688;
+            --tertiary-fixed: #ffdbcf;
+            --tertiary-container: #c24100;
+            --surface-container: #edeeef;
+            --on-surface: #191c1d;
+
+            --mesh-1: hsla(223, 100%, 93%, 1);
+            --mesh-2: hsla(225, 100%, 96%, 1);
+            --mesh-3: hsla(268, 85%, 94%, 1);
+            
+            --glass-bg: rgba(255, 255, 255, 0.4);
+            --glass-border: rgba(255, 255, 255, 0.2);
+            --nav-shadow: 0 40px 40px -10px rgba(0,64,224,0.1);
+        }
+
+        .dark {
+            --on-tertiary-fixed: #001f2a;
+            --primary-container: #4b8eff;
+            --primary: #adc6ff;
+            --outline-variant: #414755;
+            --on-primary-fixed-variant: #004493;
+            --inverse-on-surface: #313030;
+            --surface: #131313;
+            --on-primary-container: #00285c;
+            --surface-container-highest: #353534;
+            --secondary-fixed-dim: #e9b3ff;
+            --on-surface-variant: #c1c6d7;
+            --surface-container-low: #1c1b1b;
+            --inverse-primary: #005bc1;
+            --surface-bright: #393939;
+            --error-container: #93000a;
+            --on-error-container: #ffdad6;
+            --on-secondary: #510074;
+            --on-background: #e5e2e1;
+            --on-tertiary: #003546;
+            --surface-container-high: #2a2a2a;
+            --on-tertiary-container: #002e3d;
+            --tertiary: #68d3ff;
+            --background: #131313;
+            --secondary-container: #7d01b1;
+            --surface-container-lowest: #0e0e0e;
+            --primary-fixed: #d8e2ff;
+            --primary-fixed-dim: #adc6ff;
+            --secondary-fixed: #f6d9ff;
+            --surface-variant: #353534;
+            --secondary: #e9b3ff;
+            --surface-tint: #adc6ff;
+            --on-primary-fixed: #001a41;
+            --on-secondary-fixed: #310048;
+            --inverse-surface: #e5e2e1;
+            --tertiary-fixed-dim: #68d3ff;
+            --on-secondary-container: #e5a9ff;
+            --on-tertiary-fixed-variant: #004d64;
+            --on-secondary-fixed-variant: #7200a3;
+            --error: #ffb4ab;
+            --on-error: #690005;
+            --surface-dim: #131313;
+            --on-primary: #002e69;
+            --outline: #8b90a0;
+            --tertiary-fixed: #bee9ff;
+            --tertiary-container: #139cc7;
+            --surface-container: #201f1f;
+            --on-surface: #e5e2e1;
+
+            --mesh-1: hsla(223, 40%, 12%, 1);
+            --mesh-2: hsla(225, 45%, 8%, 1);
+            --mesh-3: hsla(268, 35%, 10%, 1);
+
+            --glass-bg: rgba(18, 18, 18, 0.6);
+            --glass-border: rgba(255, 255, 255, 0.08);
+            --nav-shadow: 0 40px 40px -10px rgba(0, 0, 0, 0.5);
+        }
+
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            vertical-align: middle;
+        }
+        .glass-card {
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
+            transition: background 0.3s ease, border 0.3s ease;
+        }
+        .gradient-mesh {
+            background-color: var(--surface);
+            background-image: 
+                radial-gradient(at 0% 0%, var(--mesh-1) 0, transparent 50%), 
+                radial-gradient(at 50% 0%, var(--mesh-2) 0, transparent 50%), 
+                radial-gradient(at 100% 0%, var(--mesh-3) 0, transparent 50%);
+            animation: mesh-animation 15s ease infinite;
+            transition: background-color 0.5s ease;
+        }
+        @keyframes mesh-animation {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+        .hide-scrollbar::-webkit-scrollbar { display: none; }
+        .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+
+        /* Animation utilities */
+        @keyframes scale-in {
+            from { transform: scale(0.95); opacity: 0; }
+            to { transform: scale(1); opacity: 1; }
+        }
+        @keyframes slide-in {
+            from { transform: translateX(100%); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+        .animate-scale-in {
+            animation: scale-in 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+        .animate-slide-in {
+            animation: slide-in 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+    </style>
+</head>
+<body class="bg-surface text-on-surface font-body-md overflow-x-hidden">
+... (TRUNCATED - template content preserved exactly as source) ...
+</body></html>
+{% extends 'base.html' %}
+{% block title %}Home - Flask App{% endblock %}
+{% block content %}
+  <h1>Recent Posts</h1>
+  {% if posts %}
+    <ul class="posts">
+      {% for p in posts %}
+        <li>
+          <h3>{{ p.title }}</h3>
+          <p>{{ p.body }}</p>
+        </li>
+      {% endfor %}
+    </ul>
+  {% else %}
+    <p>No posts yet.</p>
+  {% endif %}
+{% endblock %}
