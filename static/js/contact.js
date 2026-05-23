@@ -85,7 +85,7 @@
   // =========================
   // Submit Helper
   // =========================
-  async function submitContactPayload(payload, timeout = 15000) {
+  async function submitContactPayload(payload, timeout = 60000) {
 
     const controller = new AbortController();
 

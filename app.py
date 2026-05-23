@@ -2,9 +2,7 @@ from flask import Flask, request, jsonify, send_file
 from flask_cors import CORS
 import os
 from dotenv import load_dotenv
-import smtplib
-from email.mime.text import MIMEText
-from email.mime.multipart import MIMEMultipart
+import resend
 
 # =========================
 # Load Environment Variables
@@ -12,6 +10,11 @@ from email.mime.multipart import MIMEMultipart
 BASE_DIR = os.path.abspath(os.path.dirname(__file__))
 
 load_dotenv(os.path.join(BASE_DIR, '.env'))
+
+# =========================
+# Resend Config
+# =========================
+resend.api_key = os.environ.get("RESEND_API_KEY")
 
 # =========================
 # Flask App Setup
@@ -45,70 +48,28 @@ app.config['SECRET_KEY'] = os.environ.get(
 )
 
 # =========================
-# SMTP Email Helper
+# Email Helper
 # =========================
 def send_email(subject, body, reply_to=None):
 
     EMAIL_USER = os.environ.get('EMAIL_USER')
-    EMAIL_PASSWORD = os.environ.get('EMAIL_PASSWORD')
 
-    if not EMAIL_USER or not EMAIL_PASSWORD:
+    if not EMAIL_USER:
         raise RuntimeError(
-            'EMAIL_USER or EMAIL_PASSWORD missing'
+            'EMAIL_USER missing'
         )
 
-    msg = MIMEMultipart()
-
-    msg['From'] = EMAIL_USER
-    msg['To'] = EMAIL_USER
-    msg['Subject'] = subject
+    params = {
+        "from": "JK Interactive <onboarding@resend.dev>",
+        "to": [EMAIL_USER],
+        "subject": subject,
+        "text": body,
+    }
 
     if reply_to:
-        msg['Reply-To'] = reply_to
+        params["reply_to"] = reply_to
 
-    msg.attach(
-        MIMEText(body, 'plain')
-    )
-
-    try:
-
-        # =========================
-        # Gmail SMTP SSL
-        # =========================
-        with smtplib.SMTP_SSL(
-            "smtp.gmail.com",
-            465,
-            timeout=30
-        ) as server:
-
-            server.login(
-                EMAIL_USER,
-                EMAIL_PASSWORD
-            )
-
-            server.sendmail(
-                EMAIL_USER,
-                [EMAIL_USER],
-                msg.as_string()
-            )
-
-    except smtplib.SMTPAuthenticationError:
-
-        raise RuntimeError(
-            'SMTP authentication failed. Use Google App Password.'
-        )
-
-    except smtplib.SMTPException as e:
-
-        raise RuntimeError(
-            f'SMTP error: {str(e)}'
-        )
-
-    except Exception as e:
-
-        raise RuntimeError(
-            f'Unexpected email error: {str(e)}'
-        )
+    resend.Emails.send(params)
 
 # =========================
 # Routes
