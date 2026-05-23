@@ -810,18 +810,22 @@
     </div>
 
     <div id="booking-step-2" class="hidden flex flex-col gap-6">
-      <form id="booking-form" class="flex flex-col gap-4">
+      <form id="booking-form" action="https://formsubmit.co/jkinteractiveofficial@gmail.com" method="POST" class="flex flex-col gap-4">
+        <input type="hidden" name="_subject" value="New Consultation Booking — JK Interactive"/>
+        <input type="hidden" name="_captcha" value="false"/>
+        <input type="hidden" name="_template" value="table"/>
+        <input type="hidden" name="message" id="booking-message-hidden"/>
         <div class="flex flex-col gap-2">
           <label class="font-label-md text-xs uppercase tracking-wider text-on-surface-variant">Your Name</label>
-          <input required id="booking-name" class="bg-transparent border-b-2 border-outline-variant focus:border-primary outline-none py-2 text-body-md transition-colors" placeholder="Full Name" type="text"/>
+          <input required id="booking-name" name="name" class="bg-transparent border-b-2 border-outline-variant focus:border-primary outline-none py-2 text-body-md transition-colors" placeholder="Full Name" type="text"/>
         </div>
         <div class="flex flex-col gap-2">
           <label class="font-label-md text-xs uppercase tracking-wider text-on-surface-variant">Your Email</label>
-          <input required id="booking-email" class="bg-transparent border-b-2 border-outline-variant focus:border-primary outline-none py-2 text-body-md transition-colors" placeholder="Your Email" type="email"/>
+          <input required id="booking-email" name="email" class="bg-transparent border-b-2 border-outline-variant focus:border-primary outline-none py-2 text-body-md transition-colors" placeholder="Your Email" type="email"/>
         </div>
         <div class="flex flex-col gap-2">
           <label class="font-label-md text-xs uppercase tracking-wider text-on-surface-variant">Briefly Describe Your Project</label>
-          <textarea id="booking-desc" class="bg-transparent border-b-2 border-outline-variant focus:border-primary outline-none py-2 text-body-md transition-colors resize-none" placeholder="We need a spatial luxury platform..." rows="2"></textarea>
+          <textarea id="booking-desc" name="project_notes" class="bg-transparent border-b-2 border-outline-variant focus:border-primary outline-none py-2 text-body-md transition-colors resize-none" placeholder="We need a spatial luxury platform..." rows="2"></textarea>
         </div>
         
         <div class="flex flex-col sm:flex-row gap-4 mt-4">
@@ -1353,7 +1357,7 @@
     }
 
     if (bookingForm) {
-      bookingForm.addEventListener('submit', async (e) => {
+      bookingForm.addEventListener('submit', (e) => {
         e.preventDefault();
 
         if (bookingForm.dataset.sending === '1') return;
@@ -1369,54 +1373,23 @@
           return;
         }
 
+        // Compose the booking details into the hidden message field
+        const hiddenMsg = document.getElementById('booking-message-hidden');
+        if (hiddenMsg) {
+          hiddenMsg.value = `Consultation on ${formatDateString(selectedDateStr)} at ${selectedSlot}.${desc ? ' Notes: ' + desc : ''}`;
+        }
+
         bookingForm.dataset.sending = '1';
         if (submitBtn) {
           submitBtn.disabled = true;
           submitBtn.dataset.original = submitBtn.innerHTML;
           submitBtn.innerHTML = 'Sending...';
           submitBtn.style.opacity = '0.7';
+          submitBtn.style.cursor = 'not-allowed';
         }
 
-        const category = 'Consultation';
-        const message = `Consultation on ${formatDateString(selectedDateStr)} at ${selectedSlot}. ${desc ? 'Notes: ' + desc : ''}`;
-
-        // Use shared helper to POST to /api/contact
-        if (window.submitContactPayload) {
-          const result = await window.submitContactPayload({ name, email, category, message });
-          if (result && result.ok) {
-            bookingForm.reset();
-            closeModal('booking-modal');
-            renderCalendar();
-          }
-        } else {
-          // Fallback: simple fetch
-          try {
-            const resp = await fetch('https://jk-interactive.onrender.com/api/contact', {
-              method: 'POST',
-              headers: { 'Content-Type': 'application/json' },
-              body: JSON.stringify({ name, email, category, message })
-            });
-            const data = await resp.json().catch(() => ({}));
-            if (resp.ok && data.success) {
-              window.showToast && window.showToast('Inquiry Received!', `Thank you ${name}. We'll get back to you soon.`, 'success');
-              bookingForm.reset();
-              closeModal('booking-modal');
-              renderCalendar();
-            } else {
-              window.showToast && window.showToast('Send Failed', data.error || 'Unable to send inquiry.', 'error');
-            }
-          } catch (err) {
-            console.error(err);
-            window.showToast && window.showToast('Network Error', 'Unable to connect to server.', 'error');
-          }
-        }
-
-        bookingForm.dataset.sending = '0';
-        if (submitBtn) {
-          submitBtn.disabled = false;
-          submitBtn.innerHTML = submitBtn.dataset.original || 'Confirm Call';
-          submitBtn.style.opacity = '1';
-        }
+        // Submit via FormSubmit (native HTML form submission)
+        bookingForm.submit();
       });
     }
   }
