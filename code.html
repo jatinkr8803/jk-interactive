@@ -1582,6 +1582,9 @@
     }
   };
 
+  // Expose showToast globally so external scripts (contact.js) can call window.showToast
+  window.showToast = showToast;
+
   /* Admin features removed: initAdminPanel, updateAdminStats, cancelBooking, deleteInquiry */
 </script>
 <script src="/static/js/contact.js"></script>
