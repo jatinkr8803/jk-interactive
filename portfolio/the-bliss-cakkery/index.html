@@ -249,6 +249,63 @@
       0%, 100% { background-position: 0% 50%; }
       50% { background-position: 100% 50%; }
     }
+    /* Premium Animation Classes */
+    @keyframes fadeUp {
+      from {
+        opacity: 0;
+        transform: translateY(24px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    .animate-fade-up {
+      animation: fadeUp 1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+    
+    @keyframes imageReveal {
+      from {
+        opacity: 0;
+        transform: scale(0.96) translateY(12px);
+      }
+      to {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+      }
+    }
+    .animate-image-reveal {
+      animation: imageReveal 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+
+    /* Scroll reveal classes */
+    .reveal-item {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .reveal-item.revealed {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* Hover effects */
+    .hover-lift {
+      transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .hover-lift:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.12);
+    }
+    .hover-scale {
+      overflow: hidden;
+    }
+    .hover-scale img {
+      transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .hover-scale:hover img {
+      transform: scale(1.03);
+    }
   </style>
 <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-D7HQ7JN031"></script>
@@ -301,7 +358,7 @@
     <!-- 1. Hero -->
     <header class="relative min-h-[60vh] flex items-center pt-32 pb-16 gradient-mesh overflow-hidden border-b border-outline-variant/10">
       <div class="max-w-[1440px] mx-auto px-margin-desktop w-full grid grid-cols-1 lg:grid-cols-12 gap-gutter items-center z-10 relative">
-        <div class="lg:col-span-7 flex flex-col items-start gap-6">
+        <div class="lg:col-span-7 flex flex-col items-start gap-6 animate-fade-up">
           <a href="/portfolio" class="text-primary font-label-md text-label-md uppercase tracking-widest hover:underline inline-flex items-center gap-2 mb-2">
             <span class="material-symbols-outlined text-sm">arrow_back</span> Back to Portfolio
           </a>
@@ -312,9 +369,9 @@
             Brand Identity, Packaging &amp; Social Media Design
           </p>
         </div>
-        <div class="lg:col-span-5 relative">
-          <div class="aspect-video w-full rounded-[2rem] overflow-hidden shadow-2xl relative">
-            <img src="/portfolio-assest/bliss_cakery/brand-identity-board.jpeg" class="w-full h-full object-cover" alt="The Bliss Cakkery Featured Graphic">
+        <div class="lg:col-span-5 relative flex justify-center lg:justify-end">
+          <div class="w-full max-w-[420px] rounded-[2rem] overflow-hidden shadow-2xl relative animate-image-reveal hover-scale">
+            <img src="/portfolio-assest/bliss_cakery/brand-identity-board.jpeg" class="w-full h-auto object-contain" alt="The Bliss Cakkery brand identity showcase">
           </div>
         </div>
       </div>
@@ -326,11 +383,11 @@
     <section class="py-16 bg-surface-container-low border-b border-outline-variant/10">
       <div class="max-w-[1440px] mx-auto px-margin-desktop">
         <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-          <div class="glass-card p-8 rounded-2xl">
+          <div class="glass-card p-8 rounded-2xl hover-lift">
             <div class="font-label-md uppercase text-xs text-on-surface-variant">Industry</div>
             <div class="font-headline-md text-xl mt-2 font-semibold">Bakery &amp; Confectionery</div>
           </div>
-          <div class="glass-card p-8 rounded-2xl md:col-span-2">
+          <div class="glass-card p-8 rounded-2xl md:col-span-2 hover-lift">
             <div class="font-label-md uppercase text-xs text-on-surface-variant">Services Provided</div>
             <div class="flex gap-3 mt-3 flex-wrap">
               <span class="bg-primary/10 text-primary px-3 py-1 rounded-full text-xs font-semibold">Brand Identity</span>
@@ -343,14 +400,14 @@
     </section>
 
     <!-- 3 & 4. Challenge & Approach Section -->
-    <section class="py-20 bg-surface">
-      <div class="max-w-[1440px] mx-auto px-margin-desktop grid grid-cols-1 lg:grid-cols-2 gap-16">
+    <section class="py-24 bg-surface">
+      <div class="max-w-[1440px] mx-auto px-margin-desktop grid grid-cols-1 lg:grid-cols-2 gap-16 reveal-item ">
         
         <!-- Challenge -->
         <div class="flex flex-col gap-6">
           <h2 class="font-headline-lg text-2xl md:text-3xl text-primary">The Challenge</h2>
           <p class="font-body-lg text-body-lg text-on-surface-variant leading-relaxed">
-            The Bliss Cakkery relied heavily on social media and local word-of-mouth for business. However, their digital presence lacked a strong, premium identity. Despite their products being of exceptionally high confectionery quality, their branding did not fully communicate that value, resulting in missed growth opportunities.
+            The Bliss Cakkery had built a reputation for handcrafted cakes and premium desserts, but its visual identity failed to reflect the quality of its products. The brand lacked consistency across customer touchpoints, making it difficult to communicate a refined, premium experience. Without a cohesive identity, packaging system, or digital presentation, the bakery was missing opportunities to strengthen customer trust, improve brand recognition, and position itself competitively in the premium confectionery market.
           </p>
         </div>
 
@@ -358,17 +415,17 @@
         <div class="flex flex-col gap-6">
           <h2 class="font-headline-lg text-2xl md:text-3xl text-secondary">The Approach</h2>
           <p class="font-body-lg text-body-lg text-on-surface-variant leading-relaxed mb-4">
-            We developed a comprehensive solution that elevates the brand at every customer touchpoint, split into three key pillars:
+            We created a complete brand experience designed to elevate customer perception at every interaction, establishing a cohesive visual language through three strategic pillars:
           </p>
           <ul class="space-y-4 text-on-surface-variant">
             <li>
-              <strong>Brand Identity System:</strong> A refined visual framework centered on artisanal elegance, pairing sophisticated typography with a warm, minimalist color palette.
+              <strong>Brand Identity System:</strong> We crafted a modern visual identity that combines elegant typography, a carefully balanced color palette, and refined graphic elements to communicate craftsmanship, warmth, and premium quality across every brand touchpoint.
             </li>
             <li>
-              <strong>Packaging Design:</strong> High-end mockups and print guidelines designed to turn the box opening into a premium, sensory unboxing experience.
+              <strong>Packaging Design:</strong>We designed a premium packaging system focused on presentation and consistency, transforming every order into a memorable unboxing experience while reinforcing the bakery's handcrafted positioning.
             </li>
             <li>
-              <strong>Social Media Visual Direction:</strong> Polished templates and grid strategies designed to showcase the pastries as fine art and build customer trust online.
+              <strong>Social Media Visual Direction:</strong> We developed a cohesive content system with structured layouts, branded templates, and product-focused compositions, enabling the bakery to showcase its creations with a polished and recognizable visual identity.
             </li>
           </ul>
         </div>
@@ -377,21 +434,22 @@
     </section>
 
     <!-- 5. Brand Identity Section -->
-    <section class="py-20 bg-surface-container-low border-t border-outline-variant/10">
-      <div class="max-w-[1440px] mx-auto px-margin-desktop grid grid-cols-1 lg:grid-cols-12 gap-gutter items-center">
+    <section class="py-24 bg-surface-container-low border-t border-outline-variant/10">
+      <div class="max-w-[1440px] mx-auto px-margin-desktop grid grid-cols-1 lg:grid-cols-12 gap-gutter items-center reveal-item">
         <div class="lg:col-span-5 flex flex-col gap-6">
           <h2 class="font-headline-lg text-2xl md:text-3xl">Brand Identity</h2>
           <p class="text-on-surface-variant leading-relaxed">
-            The identity centers on a custom serif logotype and clean typesetting, projecting elegance and culinary craft. The color palette blends creamy neutrals with gold and warm accents to make the confectionery feel premium and warm.
+            The visual identity was crafted to position The Bliss Cakkery as a modern premium bakery, balancing artisanal warmth with refined sophistication. Through elegant typography, a carefully curated color palette, and a timeless wordmark, the brand communicates quality, craftsmanship, and consistency across every customer touchpoint.
           </p>
           <ul class="space-y-2 text-sm text-on-surface-variant">
-            <li><strong>Logo:</strong> High-contrast modern serif wordmark.</li>
-            <li><strong>Typography:</strong> Plus Jakarta Sans and Inter clean font system.</li>
-            <li><strong>Color Palette:</strong> Cream, warm brown, and soft gold accents.</li>
+            <li><strong>Logo Design:</strong>  A refined serif wordmark that reflects elegance, handcrafted quality, and premium confectionery.</li>
+            <li><strong>Typography System:</strong> Plus Jakarta Sans and Inter create a clean, contemporary hierarchy while maintaining warmth and readability.</li>
+            <li><strong>Color Palette:</strong> Soft cream, rich cocoa brown, and subtle gold accents establish a luxurious yet inviting visual identity.</li>
+            <li><strong>Brand Expression:</strong> Every visual element was designed to create a cohesive identity that feels memorable across packaging, digital media, and printed materials.</li>
           </ul>
         </div>
         <div class="lg:col-span-7">
-          <div class="rounded-[2rem] overflow-hidden shadow-xl border border-outline-variant/10">
+          <div class="rounded-[2rem] overflow-hidden shadow-xl border border-outline-variant/10 hover-scale">
             <img src="/portfolio-assest/bliss_cakery/brand-identity-board.jpeg" class="w-full h-full object-cover" alt="The Bliss Cakkery Brand Identity Board">
           </div>
         </div>
@@ -399,33 +457,73 @@
     </section>
 
     <!-- 6. Packaging Section -->
-    <section class="py-20 bg-surface">
+    <section class="py-24 bg-surface">
       <div class="max-w-[1440px] mx-auto px-margin-desktop grid grid-cols-1 lg:grid-cols-12 gap-gutter items-center">
-        <div class="lg:col-span-7 order-2 lg:order-1">
-          <div class="rounded-[2rem] overflow-hidden shadow-xl border border-outline-variant/10">
+        <div class="lg:col-span-7 order-2 lg:order-1 reveal-item">
+          <div class="rounded-[2rem] overflow-hidden shadow-xl border border-outline-variant/10 hover-scale">
             <img src="/portfolio-assest/bliss_cakery/packeging-mockup.jpeg" class="w-full h-full object-cover" alt="The Bliss Cakkery Packaging Design">
           </div>
         </div>
-        <div class="lg:col-span-5 flex flex-col gap-6 order-1 lg:order-2 lg:pl-8">
+        <div class="lg:col-span-5 flex flex-col gap-6 order-1 lg:order-2 lg:pl-8 reveal-item">
           <h2 class="font-headline-lg text-2xl md:text-3xl">Packaging Design</h2>
           <p class="text-on-surface-variant leading-relaxed">
-            We designed packaging that elevates the customer unboxing experience and increases perceived brand value. Using minimalist box structures, elegant sleeves, and custom labels, the physical product acts as an extension of the premium brand promise, turning first-time customers into brand advocates.
+            The packaging system was designed to transform every order into a premium brand experience, extending The Bliss Cakkery's visual identity beyond the product itself. Every packaging element reinforces craftsmanship, elegance, and attention to detail while creating a memorable first impression that customers associate with quality.
           </p>
+        <ul class="space-y-4 text-on-surface-variant">
+          <li>
+          <strong>Packaging System:</strong> A cohesive collection of boxes, sleeves, labels, and supporting materials designed to create a consistent premium experience across every order.
+          </li>
+
+          <li>
+          <strong>Material & Presentation:</strong> Clean layouts, refined typography, and carefully balanced visual spacing elevate the perceived quality of every product while maintaining a warm, handcrafted personality.
+          </li>
+
+          <li>
+          <strong>Customer Experience:</strong> Every unboxing moment was designed to strengthen brand recognition, encourage repeat purchases, and create a memorable experience worth sharing both in person and across social media.
+          </li>
+        </ul>
         </div>
       </div>
     </section>
 
     <!-- 7. Social Media Design Section -->
-    <section class="py-20 bg-surface-container-low border-t border-b border-outline-variant/10">
+    <section class="py-24 bg-surface-container-low border-t border-b border-outline-variant/10">
       <div class="max-w-[1440px] mx-auto px-margin-desktop grid grid-cols-1 lg:grid-cols-12 gap-gutter items-center">
-        <div class="lg:col-span-5 flex flex-col gap-6">
+        <div class="lg:col-span-5 flex flex-col gap-6 reveal-item">
           <h2 class="font-headline-lg text-2xl md:text-3xl">Social Media Visual Direction</h2>
           <p class="text-on-surface-variant leading-relaxed">
-            The social media direction establishes brand consistency across all marketing outputs. By focusing on editorial product framing, sophisticated typography overlays, and a curated color palette, the Instagram posts build instant authority, driving higher digital trust and local customer recognition.
+            A cohesive social media system was developed to extend The Bliss Cakkery's premium brand identity across digital platforms. Every design balances elegant typography, refined layouts, and product-focused compositions to showcase handcrafted desserts while building trust, improving recognition, and maintaining visual consistency throughout the customer journey.
           </p>
+          <div class="mt-4">
+            <h3 class="font-headline-md text-xl mb-1">Instagram Feed Design</h3>
+            <p class="text-on-surface-variant text-sm">
+            A clean and consistent visual grid designed to showcase premium desserts while reinforcing a recognizable brand identity.
+            </p>
+          </div>
+
+          <div class="mt-4">
+            <h3 class="font-headline-md text-xl mb-1">Product Storytelling</h3>
+            <p class="text-on-surface-variant text-sm">
+            Carefully composed layouts highlight craftsmanship, ingredients, and presentation, allowing every product to become the hero of the brand.
+            </p>
+          </div>
+
+          <div class="mt-4">
+            <h3 class="font-headline-md text-xl mb-1">Promotional Campaigns</h3>
+            <p class="text-on-surface-variant text-sm">
+            Flexible templates support seasonal launches, festive collections, and special offers while maintaining a cohesive visual language.
+            </p>
+          </div>
+
+          <div class="mt-4">
+            <h3 class="font-headline-md text-xl mb-1">Brand Consistency</h3>
+            <p class="text-on-surface-variant text-sm">
+            Unified typography, color palettes, and design elements ensure every post strengthens recognition and communicates a premium bakery experience.
+            </p>
+          </div>
         </div>
-        <div class="lg:col-span-7">
-          <div class="rounded-[2rem] overflow-hidden shadow-xl border border-outline-variant/10">
+        <div class="lg:col-span-7 reveal-item">
+          <div class="rounded-[2rem] overflow-hidden shadow-xl border border-outline-variant/10 hover-scale">
             <img src="/portfolio-assest/bliss_cakery/instagram-post-1.jpeg" class="w-full h-full object-cover" alt="The Bliss Cakkery Social Media Feed Preview">
           </div>
         </div>
@@ -433,31 +531,31 @@
     </section>
 
     <!-- 8. Expected Business Impact Section -->
-    <section class="py-20 bg-surface">
+    <section class="py-24 bg-surface">
       <div class="max-w-[1440px] mx-auto px-margin-desktop">
-        <h2 class="font-headline-lg text-2xl md:text-3xl mb-12 text-center">Expected Business Impact</h2>
+        <h2 class="font-headline-lg text-2xl md:text-3xl mb-12 text-center reveal-item">Expected Business Impact</h2>
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-6">
-          <div class="glass-card p-6 rounded-2xl text-center">
+          <div class="glass-card p-6 rounded-2xl text-center hover-lift reveal-item">
             <span class="material-symbols-outlined text-primary text-3xl mb-3">verified</span>
             <h4 class="font-semibold text-lg">Stronger Recognition</h4>
             <p class="text-on-surface-variant text-sm mt-2">Instantly identifiable logo and brand style.</p>
           </div>
-          <div class="glass-card p-6 rounded-2xl text-center">
+          <div class="glass-card p-6 rounded-2xl text-center hover-lift reveal-item">
             <span class="material-symbols-outlined text-primary text-3xl mb-3">visibility</span>
             <h4 class="font-semibold text-lg">Better Perception</h4>
             <p class="text-on-surface-variant text-sm mt-2">Positions the bakery as a high-end confectionery.</p>
           </div>
-          <div class="glass-card p-6 rounded-2xl text-center">
+          <div class="glass-card p-6 rounded-2xl text-center hover-lift reveal-item">
             <span class="material-symbols-outlined text-primary text-3xl mb-3">workspace_premium</span>
             <h4 class="font-semibold text-lg">Improved Professionalism</h4>
             <p class="text-on-surface-variant text-sm mt-2">Consistent physical and digital deliverables.</p>
           </div>
-          <div class="glass-card p-6 rounded-2xl text-center">
+          <div class="glass-card p-6 rounded-2xl text-center hover-lift reveal-item">
             <span class="material-symbols-outlined text-primary text-3xl mb-3">thumb_up</span>
             <h4 class="font-semibold text-lg">Higher Trust</h4>
             <p class="text-on-surface-variant text-sm mt-2">Premium branding builds digital authority and confidence.</p>
           </div>
-          <div class="glass-card p-6 rounded-2xl text-center">
+          <div class="glass-card p-6 rounded-2xl text-center hover-lift reveal-item">
             <span class="material-symbols-outlined text-primary text-3xl mb-3">language</span>
             <h4 class="font-semibold text-lg">Better Online Presence</h4>
             <p class="text-on-surface-variant text-sm mt-2">Cohesive visuals make the brand highly shareable.</p>
@@ -470,10 +568,10 @@
     <section class="py-24 bg-primary/5 text-center relative overflow-hidden">
       <div class="max-w-[1440px] mx-auto px-margin-desktop z-10 relative">
         <h2 class="font-display-md text-headline-lg md:text-[40px] max-w-2xl mx-auto leading-tight mb-6">
-          Want your business to look as premium as your product?
+          Ready to transform your brand into a premium experience?
         </h2>
         <p class="text-on-surface-variant font-body-lg max-w-lg mx-auto mb-10">
-          Let's design a brand system and website that commands attention and builds trust.
+          From brand identity and packaging to websites and digital experiences, we help ambitious businesses build brands that customers remember, trust, and choose.
         </p>
         <div class="flex justify-center gap-4">
           <button onclick="window.location.href='/code.html#contact'" class="bg-primary text-on-primary px-10 py-5 rounded-full font-label-md text-label-md uppercase tracking-widest shadow-xl hover:opacity-90 active:scale-95 transition-all">
@@ -511,6 +609,7 @@
     document.addEventListener('DOMContentLoaded', () => {
       initTheme();
       initMobileMenu();
+      initScrollReveal();
     });
 
     function initTheme() {
@@ -597,6 +696,26 @@
         mobileMenu.classList.add('pointer-events-none');
       }, 500);
     }
+    // Scroll Reveal Engine
+  function initScrollReveal() {
+    const observerOptions = {
+      threshold: 0.05,
+      rootMargin: "0px 0px -80px 0px"
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('revealed');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, observerOptions);
+
+    document.querySelectorAll('.reveal-item').forEach(el => {
+      observer.observe(el);
+    });
+  }
   </script>
 </body>
 </html>
