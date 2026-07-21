@@ -309,14 +309,14 @@
 
       const submitBtn = form.querySelector('button[type="submit"]');
 
-      const name =
-        document.getElementById('contact-name')?.value.trim();
-
-      const email =
-        document.getElementById('contact-email')?.value.trim();
-
-      const message =
-        document.getElementById('contact-message')?.value.trim();
+      const name = document.getElementById('contact-name')?.value.trim();
+      const email = document.getElementById('contact-email')?.value.trim();
+      const phone = document.getElementById('contact-phone')?.value?.trim() || '';
+      const company = document.getElementById('contact-company')?.value?.trim() || '';
+      const service = document.getElementById('contact-category')?.value || document.getElementById('contact-service')?.value || '';
+      const budget = document.getElementById('contact-budget')?.value || '';
+      const message = document.getElementById('contact-message')?.value.trim();
+      const gotcha = form.querySelector('[name="_gotcha"]')?.value || '';
 
       // =========================
       // Validation
@@ -324,26 +324,37 @@
       const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
       if (!name || !email || !message) {
-
         window.showToast &&
           window.showToast(
             'Validation Error',
-            'Please fill all required fields.',
+            'Please fill in all required fields (Name, Email, Message).',
             'error'
           );
-
         return;
       }
 
       if (!emailRegex.test(email)) {
-
         window.showToast &&
           window.showToast(
             'Invalid Email',
             'Please enter a valid email address.',
             'error'
           );
+        return;
+      }
 
+      // =========================
+      // Honeypot Check (Spam Protection)
+      // =========================
+      if (gotcha !== '') {
+        // Silent rejection for spam bots (pretend success)
+        form.reset();
+        window.showToast &&
+          window.showToast(
+            'Message Sent!',
+            'Thank you for reaching out. We\'ll get back to you soon.',
+            'success'
+          );
         return;
       }
 
@@ -353,38 +364,51 @@
       form.dataset.sending = '1';
 
       if (submitBtn) {
-
         submitBtn.disabled = true;
-
-        submitBtn.dataset.original =
-          submitBtn.innerHTML;
-
+        submitBtn.dataset.original = submitBtn.innerHTML;
         submitBtn.innerHTML = 'Sending...';
-
         submitBtn.style.opacity = '0.7';
-
         submitBtn.style.cursor = 'not-allowed';
       }
 
       // =========================
-      // Submit via FormSubmit (fetch — detects failures)
+      // Submit via Google Apps Script (fetch JSON)
       // =========================
       showSpinner();
 
       try {
+        const payload = {
+          name: name,
+          email: email,
+          phone: phone,
+          company: company,
+          service: service,
+          budget: budget,
+          message: message,
+          _gotcha: gotcha
+        };
 
-        const formData = new FormData(form);
+        const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxaBUSeu9FxUJD8Wa1TSyxmYD08Q1P4xsqZ6oT9rg_D5iI6sAtkbLgTdMp8d7til-vsdg/exec';
+        const targetUrl = (form.action && form.action.startsWith('http')) ? form.action : APPS_SCRIPT_URL;
 
-        const response = await fetch(form.action, {
+        const response = await fetch(targetUrl, {
           method: 'POST',
-          body: formData,
-          headers: { Accept: 'application/json' },
+          headers: {
+            'Content-Type': 'text/plain;charset=utf-8',
+          },
+          body: JSON.stringify(payload),
         });
 
         hideSpinner();
 
-        if (response.ok) {
+        let result = {};
+        try {
+          result = await response.json();
+        } catch (e) {
+          result = { success: response.ok };
+        }
 
+        if (result && result.success) {
           // Success — reset form and show success toast
           form.reset();
           resetSubmitBtn(form);
@@ -395,22 +419,26 @@
               'Thank you for reaching out. We\'ll get back to you soon.',
               'success'
             );
-
         } else {
-
-          // Server responded with an error status
+          // Server responded with failure
           resetSubmitBtn(form);
-          showFormErrorModal();
-
+          if (result && result.message) {
+            window.showToast &&
+              window.showToast(
+                'Submission Error',
+                result.message,
+                'error'
+              );
+          } else {
+            showFormErrorModal();
+          }
         }
 
       } catch (err) {
-
-        // Network failure or FormSubmit unreachable
+        // Network failure or Apps Script unreachable
         hideSpinner();
         resetSubmitBtn(form);
         showFormErrorModal();
-
       }
 
     });
