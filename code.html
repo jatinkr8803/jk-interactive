@@ -603,12 +603,10 @@
 
         <!-- Right column: Featured -->
         <div class="lg:col-span-6 md:col-span-12 relative z-10 flex items-start justify-end group mt-12" style="transform: translateY(35px) translateX(0px);">
-          <div class="relative w-full max-w-[520px] rounded-[2rem] shadow-2xl bg-surface-container-low/80 dark:bg-black/60 backdrop-blur-md border border-outline-variant/20 p-3 overflow-hidden">
+          <div class="relative w-full max-w-[520px] rounded-[2rem] shadow-2xl overflow-hidden">
             <!-- Primary packaging mockup -->
-            <div class="w-full aspect-[4/3] rounded-[1.5rem] overflow-hidden flex items-center justify-center bg-surface-container/50 relative hover-scale">
-              <img src="/portfolio-assest/bliss_cakery/packeging-mockup.jpeg" alt="The Bliss Cakkery Packaging Mockup"
-                class="w-full h-full object-contain object-center transition-transform duration-500 group-hover:scale-105" />
-            </div>
+            <img src="/portfolio-assest/bliss_cakery/packeging-mockup.jpeg" alt="The Bliss Cakkery Packaging Mockup"
+              class="w-full h-auto rounded-[2rem] shadow-2xl object-cover transition-transform duration-500 group-hover:scale-105" />
             <!-- Overlay label and CTA -->
             <div
               class="absolute bottom-6 left-6 w-56 bg-white/70 dark:bg-black/70 backdrop-blur-md rounded-[20px] shadow-xl border border-white/30 dark:border-white/10 p-4 z-20">
@@ -660,7 +658,7 @@
           <div class="md:col-span-4 group relative overflow-hidden rounded-[2rem] h-[560px] cursor-pointer"
             onclick="window.location.href='/portfolio/kaze'">
             <div class="absolute inset-0 transition-transform duration-700 group-hover:scale-105">
-              <img src="/portfolio-assest/kaze/Brand_identity.jpeg" class="w-full h-full object-cover opacity-95"
+              <img src="/portfolio-assest/kaze/packageing_mockup.jpeg" class="w-full h-full object-cover opacity-95"
                 alt="Kaze Brand Identity">
               <div class="absolute inset-0 bg-gradient-to-t from-black/85 via-black/30 to-transparent"></div>
             </div>
@@ -696,7 +694,7 @@
           <div class="md:col-span-4 group relative overflow-hidden rounded-[2rem] h-[360px] cursor-pointer"
             onclick="window.location.href='/portfolio/the-bliss-cakkery'">
             <div class="absolute inset-0 transition-transform duration-700 group-hover:scale-105">
-              <img src="/portfolio-assest/bliss_cakery/brand-identity-board.jpeg" class="w-full h-full object-cover opacity-95"
+              <img src="/portfolio-assest/bliss_cakery/packeging-mockup.jpeg" class="w-full h-full object-cover opacity-95"
                 alt="The Bliss Cakkery Brand Identity Board">
               <div class="absolute inset-0 bg-gradient-to-t from-black/85 via-black/30 to-transparent"></div>
             </div>
@@ -960,53 +958,86 @@
         </div>
       </div>
     </section>
-    <!-- Selected Work Section (replaces testimonials per Option A) -->
-    <section class="py-section-gap bg-surface relative">
-      <div class="max-w-[1440px] mx-auto px-margin-desktop overflow-hidden">
-        <div class="flex flex-col md:flex-row justify-between items-start md:items-end mb-16 gap-6">
-          <div>
-            <div
-              class="bg-primary/10 text-primary px-4 py-2 rounded-full font-label-md text-label-md uppercase tracking-widest inline-block mb-4">
-              Featured Case Study
-            </div>
-            <h2 class="font-display-md text-headline-lg md:text-display-md">Selected Work</h2>
-          </div>
-          <a href="/portfolio/the-bliss-cakkery"
-            class="bg-primary text-on-primary px-8 py-4 rounded-full font-label-md text-label-md uppercase tracking-widest hover:opacity-90 transition-all inline-flex items-center gap-2">
-            View Case Study <span class="material-symbols-outlined text-sm">arrow_forward</span>
-          </a>
+    <!-- Selected Work Section -->
+<section class="py-section-gap bg-surface relative">
+  <div class="max-w-[1440px] mx-auto px-margin-desktop overflow-hidden">
+
+    <div class="flex flex-col md:flex-row justify-between items-start md:items-end mb-16 gap-6">
+      <div>
+        <div
+          class="bg-primary/10 text-primary px-4 py-2 rounded-full font-label-md text-label-md uppercase tracking-widest inline-block mb-4">
+          Featured Case Study
         </div>
 
-        <div class="grid grid-cols-1 lg:grid-cols-12 gap-gutter items-center">
-          <div class="lg:col-span-5 flex flex-col gap-6">
-            <h3 class="font-headline-lg">The Bliss Cakkery</h3>
-            <p class="text-on-surface-variant text-body-lg leading-relaxed">
-              How we helped an artisanal bakery transform its word-of-mouth reputation into a premium digital brand
-              system, packaging experience, and cohesive social media presence.
-            </p>
-            <div class="grid grid-cols-2 gap-4 mt-2">
-              <div class="border border-outline-variant/30 p-4 rounded-xl">
-                <div class="text-xs text-on-surface-variant font-label-md uppercase">Services</div>
-                <div class="font-semibold mt-1">Branding &amp; Identity</div>
-              </div>
-              <div class="border border-outline-variant/30 p-4 rounded-xl">
-                <div class="text-xs text-on-surface-variant font-label-md uppercase">Deliverables</div>
-                <div class="font-semibold mt-1">Packaging &amp; Socials</div>
-              </div>
+        <h2 class="font-display-md text-headline-lg md:text-display-md">
+          Selected Work
+        </h2>
+      </div>
+
+      <a href="/portfolio/ironvault"
+        class="bg-primary text-on-primary px-8 py-4 rounded-full font-label-md text-label-md uppercase tracking-widest hover:opacity-90 transition-all inline-flex items-center gap-2">
+        View Case Study
+        <span class="material-symbols-outlined text-sm">arrow_forward</span>
+      </a>
+    </div>
+
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-gutter items-center">
+
+      <div class="lg:col-span-5 flex flex-col gap-6">
+
+        <h3 class="font-headline-lg">
+          IronVault
+        </h3>
+
+        <p class="text-on-surface-variant text-body-lg leading-relaxed">
+          A premium gym and fitness brand identity designed to inspire strength,
+          discipline, and performance through bold visual branding, merchandise,
+          and high-impact marketing assets.
+        </p>
+
+        <div class="grid grid-cols-2 gap-4 mt-2">
+
+          <div class="border border-outline-variant/30 p-4 rounded-xl">
+            <div class="text-xs text-on-surface-variant font-label-md uppercase">
+              Services
+            </div>
+            <div class="font-semibold mt-1">
+              Brand Identity
             </div>
           </div>
-          <div class="lg:col-span-7">
-            <div class="aspect-video w-full rounded-[2rem] overflow-hidden shadow-2xl relative group cursor-pointer"
-              onclick="window.location.href='/portfolio/the-bliss-cakkery'">
-              <img src="/portfolio-assest/bliss_cakery/packeging-mockup.jpeg"
-                class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-                alt="The Bliss Cakkery Packaging Design Mockup">
-              <div class="absolute inset-0 bg-black/10"></div>
+
+          <div class="border border-outline-variant/30 p-4 rounded-xl">
+            <div class="text-xs text-on-surface-variant font-label-md uppercase">
+              Deliverables
+            </div>
+            <div class="font-semibold mt-1">
+              Apparel & Campaign
             </div>
           </div>
+
+        </div>
+
+      </div>
+
+      <div class="lg:col-span-7">
+        <div
+          class="aspect-video w-full rounded-[2rem] overflow-hidden shadow-2xl relative group cursor-pointer"
+          onclick="window.location.href='/portfolio/ironvault'">
+
+          <img
+            src="/portfolio-assest/ironvault/mockup.jpeg"
+            class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+            alt="IronVault Brand Identity Mockup">
+
+          <div class="absolute inset-0 bg-black/10"></div>
+
         </div>
       </div>
-    </section>
+
+    </div>
+
+  </div>
+</section>
     <!-- Team Section removed from presentation (kept in markup for reference) -->
     <section id="team-founder-removed" class="py-section-gap bg-surface-container-low hidden" aria-hidden="true">
       <div class="max-w-[1200px] mx-auto px-margin-desktop">
